@@ -1,4 +1,4 @@
- //package hammurabi; 
+ //package hammurabi;  //uncomment this when Maven is fully working
 
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -23,9 +23,102 @@ public class Hammurabi {
 
         for (int year = 1; year <= 10; year++) { 
             printSummary(year, starved, newPeople, population, grain, acres, landPrice);
+            
+            int acresToBuy = askHowManyAcresToBuy(landPrice, grain);
+            if (acresToBuy > 0) {
+                acres += acresToBuy;
+                grain -= acresToBuy * landPrice;
+            } else { 
+                int acresToSell = askHowManyAcresToSell(acres);
+                if (acresToSell > 0) {
+                    acres -= acresToSell;
+                    grain += acresToSell * landPrice;
+                }
+            }
+
+            int grainForFood = askHowMuchGrainToFeedPeople(grain);
+            grain -= grainForFood; 
+
+            int acresToPlant = askHowManyAcresToPlant(acres, population, grain); 
+            grain -= acresToPlant * 2; 
         }
 
         finalSummary(population, acres, starved); 
+    }
+
+    int askHowManyAcresToSell(int acresOwned) {
+        while (true) { 
+            int acresToSell = getNumber("O great Hammurabi, how many acres do you want to sell?"); 
+
+            if (acresToSell < 0) {
+                System.out.println("O great Hammurabi, surely you jest!");
+                continue; 
+            }
+
+            if (acresToSell > acresOwned) { 
+                System.out.println("O great Hammurabi, we only own " + acresOwned + "acres!");
+                continue; 
+            }
+            return acresToSell; 
+        }
+    }
+
+    int askHowManyAcresToBuy(int price, int bushels) { 
+        while (true) { 
+            int acres = getNumber("Ooo great Hammurabi, how many acres do you want to buy? "); 
+            if (acres < 0) {
+                System.out.println("O great Hammurabi, surely you jest!");
+                continue; 
+            }
+            if (acres * price > bushels) { 
+                System.out.println("O great Hammurabi, we only have " + bushels + " bushels of grain!");
+                continue;
+            }
+            return acres; 
+        }
+    }
+
+    int askHowMuchGrainToFeedPeople(int bushels) { 
+        while (true) { 
+            int grain = getNumber("O great Hammurabi, how many bushels shall we feed the people?"); 
+
+            if (grain < 0) { 
+                System.out.println("O great Hammurabi, surely you jest!"); 
+                continue; 
+            }
+            if (grain > bushels) { 
+                System.out.println("O great Hammurabi, we only have " + bushels + " bushels of grain!" ); 
+                continue; 
+            }
+            return grain; 
+        }
+    }
+
+    int askHowManyAcresToPlant(int acresOwned, int population, int bushels) { 
+        while (true) { 
+            int acres = getNumber(" O great Hammurabi, how many acres shall we plant? ");
+
+            if (acres < 0) { 
+                System.out.println(" O great Hammurabi, surely you jest!");
+                continue; 
+            }
+
+            if (acres > acresOwned) { 
+                System.out.println(" O great Hammurabi, we only own " + acresOwned + " acres!"); 
+                continue; 
+            }
+
+            if (acres * 2 > bushels) {
+                System.out.println(" O great Hammurabi, we only have " + bushels + " bushels for seed! "); 
+                continue; 
+            }
+
+            if (acres > population * 10) { 
+                System.out.println(" O great Hammurabi, we only have " + population + " people to farm!"); 
+                continue; 
+            }
+            return acres; 
+        }
     }
 
     void printSummary(int year, int starved, int newPeople, int population, int grain, int acres, int landPrice) {
