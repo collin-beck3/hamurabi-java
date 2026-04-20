@@ -92,7 +92,7 @@ public class Hammurabi {
 
     int askHowManyAcresToSell(int acresOwned) {
         while (true) { 
-            int acresToSell = getNumber("O great Hammurabi, how many acres do you want to sell?"); 
+            int acresToSell = getNumber("O great Hammurabi, how many acres do you want to sell?   \n"); 
 
             if (acresToSell < 0) {
                 System.out.println("O great Hammurabi, surely you jest!");
@@ -109,7 +109,7 @@ public class Hammurabi {
 
     int askHowManyAcresToBuy(int price, int bushels) { 
         while (true) { 
-            int acres = getNumber("Ooo great Hammurabi, how many acres do you want to buy? "); 
+            int acres = getNumber("Ooo great Hammurabi, how many acres do you want to buy?  \n"); 
             if (acres < 0) {
                 System.out.println("O great Hammurabi, surely you jest!");
                 continue; 
@@ -124,7 +124,7 @@ public class Hammurabi {
 
     int askHowMuchGrainToFeedPeople(int bushels) { 
         while (true) { 
-            int grain = getNumber("O great Hammurabi, how many bushels shall we feed the people?"); 
+            int grain = getNumber("O great Hammurabi, how many bushels shall we feed the people?  \n"); 
 
             if (grain < 0) { 
                 System.out.println("O great Hammurabi, surely you jest!"); 
@@ -140,7 +140,7 @@ public class Hammurabi {
 
     int askHowManyAcresToPlant(int acresOwned, int population, int bushels) { 
         while (true) { 
-            int acres = getNumber(" O great Hammurabi, how many acres shall we plant? ");
+            int acres = getNumber(" O great Hammurabi, how many acres shall we plant?  ");
 
             if (acres < 0) { 
                 System.out.println(" O great Hammurabi, surely you jest!");
@@ -184,7 +184,7 @@ public class Hammurabi {
         int plagueDeaths(int population) { 
             if (rand.nextInt(100) < 15) { 
                 int deaths = population / 2; 
-                System.out.println( " A horrible plague struck the kingdom!");
+                System.out.println( " A HORRIBLE PLAGUE HAS HIT THE KINGDOM!! \n");
                 return deaths; 
             }
             return 0; 
@@ -212,14 +212,14 @@ public class Hammurabi {
         }
 
     void printSummary(int year, int starved, int newPeople, int population, int grain, int acres, int landPrice) {
-        System.out.println("\nOHHH great Hammurabi!"); 
+        System.out.println("\nOoooo great Hammurabi!\n"); 
         System.out.println("You are in year " + year + " of your ten year reign."); 
         System.out.println("In the previous year " + starved + " people starved to death! :(("); 
-        System.out.println("In the previous year " + newPeople + " people entered the kingdom :))"); 
+        System.out.println("In the previous year " + newPeople + " people entered the kingdom :))\n"); 
         System.out.println("The population in now " + population + "!"); 
         System.out.println("We have " + grain + " bushels of grain in the storage."); 
         System.out.println("The kingdom is " + acres + " acres large."); 
-        System.out.println("Land is currently worth " + landPrice + " bushels per acre."); 
+        System.out.println("Land is currently worth " + landPrice + " bushels per acre.\n"); 
 
     }
 
@@ -227,7 +227,7 @@ public class Hammurabi {
         System.out.println("\nYour ten year rule has ended!"); 
         System.out.println("Final population is: " + population); 
         System.out.println("Final acres: " + acres); 
-        System.out.println("Acres per person: " + (acres / population)); 
+        System.out.println("Acres per person: " + (acres / population) + "\n"); 
         if (starved == 0) { 
             System.out.println("Oooo Great Hammurabi, THE PEOPLE LOVE YOU!"); 
         } else {
