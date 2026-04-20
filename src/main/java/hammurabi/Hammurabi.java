@@ -1,4 +1,4 @@
- //package hammurabi;  //uncomment this when Maven is fully working
+package hammurabi;  //uncomment this when Maven is fully working
 
 import java.util.InputMismatchException;
 import java.util.Random;
