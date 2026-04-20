@@ -41,6 +41,50 @@ public class Hammurabi {
 
             int acresToPlant = askHowManyAcresToPlant(acres, population, grain); 
             grain -= acresToPlant * 2; 
+
+            int harvested = harvest(acresToPlant, acresToPlant * 2); 
+            grain += harvested; 
+            System.out.println("We harvested " + harvested + " bushels this year!"); 
+
+            int ratsAte = grainEatenByRats(grain); 
+            if (ratsAte > 0) { 
+                grain -= ratsAte; 
+                System.out.println("Rats destroyed " + ratsAte + " bushels of grain!"); 
+            } else { 
+                System.out.println(" No rats this year!! :) "); 
+            }
+
+            int plagueDead = plagueDeaths(population); 
+            if (plagueDead > 0) { 
+                population -= plagueDead; 
+                System.out.println( plagueDead + " people died from plague this year!");
+            } else { 
+                System.out.println( " No plague this year!"); 
+            }
+
+            starved = starvationDeaths(population, grainForFood); 
+            if (starved > 0) { 
+                population -= starved; 
+                System.out.println(starved + " people starved this year!");
+            }
+
+            if (uprising(population, starved)) { 
+                System.out.println( " O great Hammurabi, the people have revolted against you!"); 
+                System.out.println( " The castle has been stormed and you have been removed from office!! Off with your head!!");
+                break;
+            }
+
+            if (starved == 0) { 
+                newPeople = Immigrants(population, acres, grain);
+                population += newPeople; 
+                System.out.println( newPeople + " people entered the kingdom!");
+            } else { 
+                newPeople = 0; 
+                System.out.println( " Nobody wanted to join your starving kingdom! :(( ");
+            }
+
+            landPrice = newCostOfLand(); 
+
         }
 
         finalSummary(population, acres, starved); 
@@ -120,6 +164,52 @@ public class Hammurabi {
             return acres; 
         }
     }
+
+        int harvest(int acres, int bushelsUsedAsSeed) { 
+            int yield = rand.nextInt(6)+ 1; 
+            int harvested = bushelsUsedAsSeed > 0 ? acres * yield : 0; 
+            return harvested; 
+        }
+
+        int grainEatenByRats(int bushels) {
+            if (rand.nextInt(100) < 40) {
+                int percentage = rand.nextInt(21) + 10; 
+                int eaten = bushels * percentage / 100; 
+                return eaten;
+            }
+
+            return 0; 
+        }
+
+        int plagueDeaths(int population) { 
+            if (rand.nextInt(100) < 15) { 
+                int deaths = population / 2; 
+                System.out.println( " A horrible plague struck the kingdom!");
+                return deaths; 
+            }
+            return 0; 
+        }
+
+        int Immigrants( int population, int acresOwned, int grainInStorage) {
+            int newPeople = (20 * acresOwned + grainInStorage) / (100 * population) + 1; 
+            return newPeople; 
+        }
+
+        int starvationDeaths(int population, int bushelsFedToPeople) { 
+            int peopleFed = bushelsFedToPeople / 20; 
+            if (peopleFed < population) { 
+                return population - peopleFed; 
+            }
+            return 0; 
+        }
+
+        boolean uprising(int population, int howManyPeopleStarved) { 
+            return howManyPeopleStarved * 100 / population > 45; 
+        }
+
+        int newCostOfLand() { 
+            return rand.nextInt(7) + 17; 
+        }
 
     void printSummary(int year, int starved, int newPeople, int population, int grain, int acres, int landPrice) {
         System.out.println("\nOHHH great Hammurabi!"); 
